@@ -1,8 +1,6 @@
 import { createStore } from 'vuex';
-interface IRootState{
-  name:string
-  age:number
-}
+import login from './login/login'
+import IRootState from './login/type'
 
 export default createStore <IRootState>({
   state: () => {
@@ -14,5 +12,7 @@ export default createStore <IRootState>({
   getters: {},
   mutations: {},
   actions: {},
-  modules: {}
+  modules: {
+    login
+  }
 });

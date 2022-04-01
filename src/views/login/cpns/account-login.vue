@@ -16,8 +16,10 @@ import { defineComponent, reactive, ref } from 'vue';
 import type { FormInstance, ElForm } from 'element-plus';
 import { rules } from '../config/account-config';
 import localCache from '../../../utils/cache'
+import {useStore} from 'vuex'
 export default defineComponent({
   setup() {
+    const store = useStore()
     const formRef = ref<InstanceType<typeof ElForm>>();
     const account = reactive({
       name: localCache.getCache('name')??'',
@@ -31,6 +33,7 @@ export default defineComponent({
             localCache.setCache('password',account.password);
           }
         }
+        store.dispatch('login/accountLoginAction',{...account})
       });
     };
     return {
