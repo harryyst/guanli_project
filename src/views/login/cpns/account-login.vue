@@ -25,7 +25,8 @@ export default defineComponent({
     const loginAction = (iskeepPassword: boolean) => {
       formRef.value?.validate((valid) => {
         if (valid) {
-          console.log('login');
+          // if (iskeepPassword) {
+          // }
         }
       });
     };
