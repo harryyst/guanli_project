@@ -1,9 +1,14 @@
 import { createStore } from 'vuex';
+interface IRootState{
+  name:string
+  age:number
+}
 
-export default createStore({
+export default createStore <IRootState>({
   state: () => {
     return {
-      name: 'harryyst'
+      name: 'harryyst',
+      age:12
     };
   },
   getters: {},
