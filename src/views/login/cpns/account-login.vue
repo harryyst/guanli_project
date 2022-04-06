@@ -15,25 +15,25 @@
 import { defineComponent, reactive, ref } from 'vue';
 import type { FormInstance, ElForm } from 'element-plus';
 import { rules } from '../config/account-config';
-import localCache from '../../../utils/cache'
-import {useStore} from 'vuex'
+import localCache from '../../../utils/cache';
+import { useStore } from 'vuex';
 export default defineComponent({
   setup() {
-    const store = useStore()
+    const store = useStore();
     const formRef = ref<InstanceType<typeof ElForm>>();
     const account = reactive({
-      name: localCache.getCache('name')??'',
-      password: localCache.getCache('password')??''
+      name: localCache.getCache('name') ?? '',
+      password: localCache.getCache('password') ?? ''
     });
     const loginAction = (iskeepPassword: boolean) => {
       formRef.value?.validate((valid) => {
         if (valid) {
           if (iskeepPassword) {
-            localCache.setCache('name',account.name);
-            localCache.setCache('password',account.password);
+            localCache.setCache('name', account.name);
+            localCache.setCache('password', account.password);
           }
+          store.dispatch('login/accountLoginAction', { ...account });
         }
-        store.dispatch('login/accountLoginAction',{...account})
       });
     };
     return {

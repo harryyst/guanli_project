@@ -1,4 +1,4 @@
-export default interface IRootState{
-    name:string
-    age:number
-  }
+export default interface IRootState {
+  name: string;
+  age: number;
+}

@@ -21,7 +21,6 @@ class STRequest {
     );
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('lanjie');
         if (this.showloading) {
           this.loading = ElLoading.service({
             lock: true,
@@ -39,6 +38,7 @@ class STRequest {
         if (this.showloading) {
           this.loading.close();
         }
+        config = config.data;
         return config;
       },
       (error) => {
@@ -58,7 +58,6 @@ class STRequest {
             res = config.interceptors.responseInterceptor(res);
           }
           resolve(res);
-          console.log(res);
         })
         .catch((error) => {
           reject(error);
@@ -67,6 +66,9 @@ class STRequest {
   }
   get<T>(config: STRequestConfig): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' });
+  }
+  post<T>(config: STRequestConfig): Promise<T> {
+    return this.request<T>({ ...config, method: 'POST' });
   }
 }
 
