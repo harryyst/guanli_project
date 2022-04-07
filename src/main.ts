@@ -14,7 +14,7 @@ const app = createApp(App);
 app.component(ElCollapseTransition.name, ElCollapseTransition);
 app.use(store).use(router).mount('#app');
 setupStore();
-stRequest.request({
-  url: '/home/multidata',
-  method: 'GET'
-});
+// stRequest.request({
+//   url: '/home/multidata',
+//   method: 'GET'
+// });
