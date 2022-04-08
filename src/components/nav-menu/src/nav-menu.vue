@@ -7,7 +7,7 @@
     <!-- <el-row class="tac"> -->
     <!-- <el-col :span="12"> -->
     <el-menu
-      default-active="2"
+      :default-active="defaultValue"
       class="el-menu-vertical"
       background-color="bisque"
       height="100%"
@@ -44,10 +44,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import { Box } from '@element-plus/icons-vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
+import { pathMapToMenu } from '@/utils/map-menus';
 
 export default defineComponent({
   props: {
@@ -62,15 +63,18 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const userMenus = computed(() => store.state.login.userMenus);
-
     const router = useRouter();
+    const route = useRoute();
+    const currentPath = route.path;
+    const menu = pathMapToMenu(userMenus.value, currentPath);
     const handleItemClick = (item: any) => {
-      // console.log(item);
       router.push({
         path: item.url ?? ''
       });
     };
-    return { userMenus, handleItemClick };
+
+    const defaultValue = ref(menu.id + '');
+    return { userMenus, handleItemClick, defaultValue };
   }
 });
 </script>

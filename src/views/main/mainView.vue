@@ -9,8 +9,8 @@
           <el-header
             ><nav-header @foldChange="handleFoldChange"></nav-header
           ></el-header>
-          <el-main>
-            <router-view></router-view>
+          <el-main class="el-main">
+            <div class="page-info"><router-view></router-view></div>
           </el-main>
         </el-container>
       </el-container>
@@ -58,5 +58,11 @@ export default defineComponent({
   transition: width 0.3s linear;
   scrollbar-width: none; /* firefox */
   -ms-overflow-style: none; /* IE 10+ */
+}
+.el-main {
+  background-color: grey;
+}
+.page-info {
+  background-color: #fff;
 }
 </style>
