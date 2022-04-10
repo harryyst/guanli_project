@@ -5,6 +5,7 @@ export interface IFormItem {
   placeholder?: any;
   options?: any[];
   otherOptions?: any;
+  field:string
 }
 
 export interface IForm {

@@ -46,7 +46,7 @@ class STRequest {
       }
     );
   }
-  request<T>(config: STRequestConfig): Promise<T> {
+  request<T=any>(config: STRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
       if (config.interceptors?.requestInterceptor) {
         config = config.interceptors.requestInterceptor(config);
@@ -64,10 +64,10 @@ class STRequest {
         });
     });
   }
-  get<T>(config: STRequestConfig): Promise<T> {
+  get<T=any>(config: STRequestConfig): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' });
   }
-  post<T>(config: STRequestConfig): Promise<T> {
+  post<T=any>(config: STRequestConfig): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' });
   }
 }
