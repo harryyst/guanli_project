@@ -44,25 +44,58 @@ export function pathMapToMenu(userMenus: any[], currentPath: string): any {
     }
   }
 }
-export function pathMapBreadcrumbs(userMenus: any[], currentPath: string) :IBreadcrumb[]{
-  const breadcrumbs :IBreadcrumb[] = []
+export function pathMapBreadcrumbs(
+  userMenus: any[],
+  currentPath: string
+): IBreadcrumb[] {
+  const breadcrumbs: IBreadcrumb[] = [];
 
   for (const menu of userMenus) {
     if (menu.type === 1) {
       const findMenu = pathMapToMenu(menu.children ?? [], currentPath);
-      if (findMenu) { 
-        
-
-        breadcrumbs.push({name:menu.name,path:menu.url})
-        breadcrumbs.push({name:findMenu.name,path:findMenu.url})
+      if (findMenu) {
+        breadcrumbs.push({ name: menu.name, path: menu.url });
+        breadcrumbs.push({ name: findMenu.name, path: findMenu.url });
         return breadcrumbs;
       }
     } else if (menu.type === 2 && menu.url === currentPath) {
       return menu;
-    } 
+    }
   }
-  
-  return breadcrumbs
+
+  return breadcrumbs;
+}
+
+export function mapMenusToPermissions(userMenus: any[]) {
+  const permission: string[] = [];
+  const _recuiseGetPermission = (menus: any[]) => {
+    for (const menu of menus) {
+      if (menu.type === 1 || menu.type === 2) {
+        _recuiseGetPermission(menu.children ?? []);
+      } else if (menu.type === 3) {
+        permission.push(menu.permission);
+      }
+    }
+  };
+  _recuiseGetPermission(userMenus);
+  return permission;
+}
+
+export function getMenuLeafKeys(menuList: any[]) {
+  const leftKeys: number[] = [];
+
+  const _recurseGetLeaf = (menuList: any[]) => {
+    for (const menu of menuList) {
+      if (menu.children) {
+        _recurseGetLeaf(menu.children);
+      } else {
+        leftKeys.push(menu.id);
+      }
+    }
+  };
+
+  _recurseGetLeaf(menuList);
+  return leftKeys;
 }
 
 export { firstMenu };

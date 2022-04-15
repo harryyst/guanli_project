@@ -5,7 +5,8 @@ export interface IFormItem {
   placeholder?: any;
   options?: any[];
   otherOptions?: any;
-  field:string
+  field: string;
+  isHidden?: boolean;
 }
 
 export interface IForm {

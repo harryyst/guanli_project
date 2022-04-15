@@ -9,6 +9,9 @@ class LocalCache {
       return JSON.parse(value);
     }
   }
+  deleteCache(key: string) {
+    window.localStorage.removeItem(key);
+  }
 }
 
 export default new LocalCache();

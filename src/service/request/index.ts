@@ -46,7 +46,7 @@ class STRequest {
       }
     );
   }
-  request<T=any>(config: STRequestConfig): Promise<T> {
+  request<T = any>(config: STRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
       if (config.interceptors?.requestInterceptor) {
         config = config.interceptors.requestInterceptor(config);
@@ -64,11 +64,17 @@ class STRequest {
         });
     });
   }
-  get<T=any>(config: STRequestConfig): Promise<T> {
+  get<T = any>(config: STRequestConfig): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' });
   }
-  post<T=any>(config: STRequestConfig): Promise<T> {
+  post<T = any>(config: STRequestConfig): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' });
+  }
+  delete<T = any>(config: STRequestConfig): Promise<T> {
+    return this.request<T>({ ...config, method: 'DELETE' });
+  }
+  patch<T = any>(config: STRequestConfig): Promise<T> {
+    return this.request<T>({ ...config, method: 'PATCH' });
   }
 }
 

@@ -1,6 +1,6 @@
 import { Module } from 'vuex';
 import IRootState from './type';
-import { mapMenusToRoutes } from '@/utils/map-menus';
+import { mapMenusToRoutes, mapMenusToPermissions } from '@/utils/map-menus';
 import {
   accountLoginRequest,
   requestUserInfoById,
@@ -13,6 +13,7 @@ interface ILoginState {
   token: string;
   userInfo: any;
   userMenus: any;
+  permissions: string[];
 }
 
 const loginModule: Module<ILoginState, IRootState> = {
@@ -21,7 +22,8 @@ const loginModule: Module<ILoginState, IRootState> = {
     return {
       token: '',
       userInfo: [],
-      userMenus: []
+      userMenus: [],
+      permissions: []
     };
   },
   mutations: {
@@ -37,6 +39,9 @@ const loginModule: Module<ILoginState, IRootState> = {
       routes.forEach((route) => {
         router.addRoute('main', route);
       });
+
+      const permissions = mapMenusToPermissions(userMenus);
+      state.permissions = permissions;
     }
   },
   actions: {
@@ -45,6 +50,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       const { id, token } = res.data;
       commit('changeToken', token);
       localCache.setCache('token', token);
+
       const userInfoResult = await requestUserInfoById(id);
       const userInfo = userInfoResult.data;
       commit('changeUserInfo', userInfo);

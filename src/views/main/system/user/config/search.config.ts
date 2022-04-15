@@ -10,23 +10,23 @@ export const formConfig: IForm = {
       label: '用户名',
       placeholder: '请输入用户名',
       type: 'input',
-      field:'name'
+      field: 'name'
     },
     {
-      label: '密码',
-      placeholder: '请输入密码',
+      label: '真实姓名',
+      placeholder: '请输入真实姓名',
       type: 'input',
-      field:'password'
+      field: 'realname'
     },
     {
-      label: '喜欢的运动',
-      placeholder: '请选择喜欢的运动',
+      label: '用户状态',
+      placeholder: '请选择用户状态',
       type: 'select',
       options: [
-        { title: '篮球', value: 'basketball' },
-        { title: '足球', value: 'football' }
+        { title: '启用', value: 1 },
+        { title: '禁用', value: 0 }
       ],
-      field:'sport'
+      field: 'enable'
     },
     {
       label: '创建时间',
@@ -37,7 +37,7 @@ export const formConfig: IForm = {
         endPlaceholder: '结束时间',
         type: 'daterange'
       },
-      field:'createTime'
+      field: 'createAt'
     }
   ]
 };

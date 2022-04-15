@@ -7,14 +7,22 @@
       <el-row>
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
-            <el-form-item :label="item.label" :style="itemStyle">
+            <el-form-item
+              v-if="!item.isHidden"
+              :label="item.label"
+              :style="itemStyle"
+            >
               <template v-if="item.type === 'input'">
                 <el-input v-model="formData[`${item.field}`]"></el-input>
               </template>
               <template v-else-if="item.type === 'select'">
-                <el-select :placeholder="item.placeholder" v-model="formData[`${item.field}`]">
+                <el-select
+                  placeholder="please select your zone"
+                  v-model="formData[`${item.field}`]"
+                >
                   <el-option
                     v-for="option in item.options"
+                    :label="option.title"
                     :value="option.value"
                     :key="option.value"
                     >{{ option.title }}</el-option
@@ -40,13 +48,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref,watch } from 'vue';
+import { defineComponent, PropType, ref, watch } from 'vue';
 import { IFormItem } from '../types';
 export default defineComponent({
   props: {
-    modelValue:{
-      type:Object,
-      required:true
+    modelValue: {
+      type: Object,
+      required: true
     },
     formItems: {
       type: Array as PropType<IFormItem[]>,
@@ -70,12 +78,14 @@ export default defineComponent({
       })
     }
   },
-  emit:['update:modelValue'],
-  setup(props,{emit}) {
-    const formData = ref({...props.modelValue})
-    watch(formData,(newValue)=>emit('update:modelValue',newValue),{deep:true})
+  emit: ['update:modelValue'],
+  setup(props, { emit }) {
+    const formData = ref({ ...props.modelValue });
+    watch(formData, (newValue) => emit('update:modelValue', newValue), {
+      deep: true
+    });
 
-    return {formData};
+    return { formData };
   }
 });
 </script>

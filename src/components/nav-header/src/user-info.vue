@@ -6,7 +6,7 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>Action 1</el-dropdown-item>
+          <el-dropdown-item @click="handleExitClick">退出登录</el-dropdown-item>
           <el-dropdown-item> Action 2 </el-dropdown-item>
           <el-dropdown-item>Action 3</el-dropdown-item>
           <el-dropdown-item>Action 4</el-dropdown-item>
@@ -19,7 +19,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-
+import localCache from '@/utils/cache';
+import { useRouter } from 'vue-router';
 export default defineComponent({
   props: {
     username: {
@@ -27,7 +28,14 @@ export default defineComponent({
     }
   },
   setup() {
-    return {};
+    const router = useRouter();
+    const handleExitClick = () => {
+      localCache.deleteCache('token');
+      router.push('/main');
+    };
+    return {
+      handleExitClick
+    };
   }
 });
 </script>

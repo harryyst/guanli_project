@@ -1,16 +1,21 @@
 <template>
   <div class="department">
-    <h2>department</h2>
+    <page-content ref="asd"></page-content>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-
+import { defineComponent, ref } from 'vue';
+import PageContent from '@/components/page-content';
 export default defineComponent({
   name: 'department',
+  components: {
+    PageContent
+  },
   setup() {
-    return {};
+    const asd = ref<InstanceType<typeof PageContent>>();
+    // console.log(asd.value);
+    return { asd };
   }
 });
 </script>
